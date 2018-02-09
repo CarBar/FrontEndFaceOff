@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { FactFinderService } from './fact-finder.service';
@@ -14,6 +14,7 @@ import { NorrisFactFinderComponent } from './norris-fact-finder/norris-fact-find
   ],
   imports: [
     BrowserModule
+    , NgbModule.forRoot()
   ],
   providers: [FactFinderService],
   bootstrap: [AppComponent]
