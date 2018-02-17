@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { FactFinderService } from '../fact-finder.service';
+
 @Component({
   selector: 'app-norris-fact-finder',
   templateUrl: './norris-fact-finder.component.html',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NorrisFactFinderComponent implements OnInit {
 
-  constructor() { }
+  categories: string[] = [];
+  joke: string;
+  constructor(private factService: FactFinderService) { }
 
   ngOnInit() {
+    this.factService
+      .getCategories()
+      .subscribe(x => this.categories = x);
+  }
+
+  getJoke(category: string) {
+    this.factService.getJoke(category)
+    .subscribe(j => this.joke = j);
   }
 
 }
