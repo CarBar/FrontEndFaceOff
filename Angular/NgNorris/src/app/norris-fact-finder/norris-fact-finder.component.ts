@@ -11,6 +11,7 @@ export class NorrisFactFinderComponent implements OnInit {
 
   categories: string[] = [];
   category: string;
+  random = false;
   joke: string;
   secondsToJoke = 0;
   jokeInterval = 5;
@@ -39,6 +40,13 @@ export class NorrisFactFinderComponent implements OnInit {
     this.factService
       .getJoke(category)
       .subscribe(j => this.joke = j);
+  }
+
+  toggleRandom(event: boolean) {
+    this.random = event;
+    if (this.random) {
+      this.category = null;
+    }
   }
 
   setCategory(category: string) {

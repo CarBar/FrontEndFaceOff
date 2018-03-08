@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FactFinderService } from './services/fact-finder.service';
 import { NorrisFactFinderComponent } from './norris-fact-finder/norris-fact-finder.component';
-
+import { UiSwitchModule } from '../../node_modules/ngx-toggle-switch/src';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,8 @@ import { NorrisFactFinderComponent } from './norris-fact-finder/norris-fact-find
   imports: [
     BrowserModule,
     HttpModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    UiSwitchModule
   ],
   providers: [FactFinderService],
   bootstrap: [AppComponent]
