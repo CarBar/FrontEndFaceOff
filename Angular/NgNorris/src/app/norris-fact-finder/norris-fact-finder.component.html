@@ -1,10 +1,12 @@
 
 <div class="btn-group" ngbDropdown>
-  <button class="btn btn-outline-primary" ngbDropdownToggle>Categories</button>
+  <button class="btn btn-outline-primary" ngbDropdownToggle>{{ category || 'Categories' }}</button>
   <div class="dropdown-menu" ngbDropdownMenu>
-    <button class="dropdown-item"  *ngFor="let category of categories" (click)="getJoke(category)">{{category}}</button>
+    <button class="dropdown-item"  *ngFor="let category of categories" (click)="setCategory(category)">{{category}}</button>
   </div>
 </div>
+
+<ngb-progressbar value="250"></ngb-progressbar>
 
 <div *ngIf="joke">
   <a href="{{joke.url}}">
