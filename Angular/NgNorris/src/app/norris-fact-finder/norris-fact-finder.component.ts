@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FactFinderService } from '../fact-finder.service';
+import { FactFinderService } from '../services/fact-finder.service';
 
 @Component({
   selector: 'app-norris-fact-finder',

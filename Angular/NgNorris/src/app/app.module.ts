@@ -4,7 +4,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { FactFinderService } from './fact-finder.service';
+import { FactFinderService } from './services/fact-finder.service';
 import { NorrisFactFinderComponent } from './norris-fact-finder/norris-fact-finder.component';
 
 
