@@ -12,6 +12,9 @@ export class NorrisFactFinderComponent implements OnInit {
   categories: string[] = [];
   category: string;
   joke: string;
+  secondsToJoke = 0;
+  jokeInterval = 5;
+
   constructor(private factService: FactFinderService) { }
 
   ngOnInit() {
@@ -20,10 +23,16 @@ export class NorrisFactFinderComponent implements OnInit {
       .first() // Only get the first value then unsubscribe to not have a leak.
       .subscribe(x => this.categories = x);
 
-    Observable
-      .interval(5000)
-      .take(100)
-      .subscribe(x => this.factService.getJoke(this.category).subscribe(y => this.joke = y));
+    Observable.timer(0, 1000)
+      .subscribe(x => {
+        if (this.secondsToJoke > 0) {
+          this.secondsToJoke--;
+        }
+        if (!this.secondsToJoke) {
+          this.factService.getJoke(this.category).subscribe(y => this.joke = y);
+          this.secondsToJoke = this.jokeInterval;
+        }
+      });
   }
 
   getJoke(category: string) {
