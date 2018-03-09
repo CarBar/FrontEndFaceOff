@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FactFinderService } from '../services/fact-finder.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-norris-fact-finder',
@@ -15,6 +15,7 @@ export class NorrisFactFinderComponent implements OnInit {
   joke: string;
   secondsToJoke = 0;
   jokeInterval = 5;
+  jokeSubscription: Subscription;
 
   constructor(private factService: FactFinderService) { }
 
@@ -23,17 +24,6 @@ export class NorrisFactFinderComponent implements OnInit {
       .getCategories()
       .first() // Only get the first value then unsubscribe to not have a leak.
       .subscribe(x => this.categories = x);
-
-    Observable.timer(0, 1000)
-      .subscribe(x => {
-        if (this.secondsToJoke > 0) {
-          this.secondsToJoke--;
-        }
-        if (!this.secondsToJoke) {
-          this.factService.getJoke(this.category).subscribe(y => this.joke = y);
-          this.secondsToJoke = this.jokeInterval;
-        }
-      });
   }
 
   getJoke(category: string) {
@@ -46,6 +36,23 @@ export class NorrisFactFinderComponent implements OnInit {
     this.random = event;
     if (this.random) {
       this.category = null;
+    }
+  }
+
+  toggleJokeSubscription(subscribe: boolean) {
+    if (subscribe) {
+      this.jokeSubscription = Observable.timer(0, 1000).subscribe(x => {
+        if (this.secondsToJoke > 0) {
+          this.secondsToJoke--;
+        }
+        if (!this.secondsToJoke) {
+          this.getJoke(this.category);
+          this.secondsToJoke = this.jokeInterval;
+        }
+      });
+    } else {
+      this.jokeSubscription.unsubscribe();
+      this.secondsToJoke = 0;
     }
   }
 

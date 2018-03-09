@@ -1,16 +1,22 @@
 <div>
-  Lock Random:
-  <ui-switch (change)="toggleRandom($event)"></ui-switch>
-</div>
-
-<div class="btn-group" ngbDropdown>
-  <button class="btn btn-outline-primary" ngbDropdownToggle [disabled]="random">{{ category || 'Random' }}</button>
-  <div class="dropdown-menu" ngbDropdownMenu>
-    <button class="dropdown-item"  *ngFor="let category of categories" (click)="setCategory(category)">{{category}}</button>
-  </div>
+  Run Timer:
+  <ui-switch (change)="toggleJokeSubscription($event)"></ui-switch>
 </div>
 
 <p>Seconds to next joke: {{ secondsToJoke }}</p>
+
+<button type="button" class="btn btn-outline-warning" (click)="setCategory()">Reset category</button>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-outline-primary" (click)="getJoke(category)">{{ category || 'Random' }}</button>
+  <div class="btn-group" ngbDropdown role="group">
+    <button class="btn btn-outline-primary dropdown-toggle-split" ngbDropdownToggle></button>
+    <div class="dropdown-menu" ngbDropdownMenu>
+      <button class="dropdown-item"  *ngFor="let category of categories" (click)="setCategory(category)">{{category}}</button>
+    </div>
+  </div>
+</div>
+
 
 <div *ngIf="joke">
   <a href="{{joke.url}}">
